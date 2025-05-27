@@ -7,7 +7,7 @@ module traffic_light(
   output reg        green_light  // drives green LED
 );
 
-  // clock divider: produce a 1 Hz “tick” from 100 MHz
+  // clock divider: produce a 1 Hz "tick" from 100 MHz
   reg [26:0] clk_count;
   wire       tick;
   always @(posedge clk or negedge rst_n) begin
@@ -22,7 +22,7 @@ module traffic_light(
 
 
 
-  // simple edge detection on the start button → toggle “running”
+  // simple edge detection on the start button → toggle "running"
   reg        start_btn_prev;
   reg        running; // 0 means paused on red, 1 means cycle is active
   wire       start_edge = start_btn && !start_btn_prev; // goes high for exactly one clock 
@@ -40,8 +40,10 @@ module traffic_light(
 
 
   // FSM state encoding and a seconds-counter
-  typedef enum reg [1:0] { S_RED=2'b00, S_GREEN=2'b01, S_YELLOW=2'b10 } state_t;
-  state_t state, next_state;
+  localparam S_RED = 2'b00;
+  localparam S_GREEN = 2'b01;
+  localparam S_YELLOW = 2'b10;
+  reg [1:0] state, next_state;
   reg [3:0] sec_count;  // counts from 0 up; small enough for 5 s
 
 

@@ -1,0 +1,31 @@
+module traffic_light(
+    input wire clk,         // 100 MHz clock
+    output reg red_light,
+    output reg yellow_light,
+    output reg green_light
+);
+
+  // 100 MHz clock → 100 million cycles per second
+  
+  reg [33:0] counter = 0;
+
+  always @(posedge clk) begin
+    // Increment the counter until 15 seconds
+    if (counter < 1_500_000_000) begin
+      counter <= counter + 1;
+    end
+
+    // Default: all lights off
+    red_light <= 0;
+    yellow_light <= 0;
+    green_light <= 0;
+
+    // State machine based on time elapsed
+    if (counter >= 500_000_000 && counter < 1_000_000_000) begin
+      red_light <= 1;  // Red ON from 5–10s
+    end else if (counter >= 1_000_000_000 && counter < 1_500_000_000) begin
+      yellow_light <= 1;  // Yellow ON from 10–15s
+    end
+  end
+
+endmodule

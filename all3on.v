@@ -5,6 +5,6 @@ module top(
 );
   assign red_light = 1'b1;       // tie the pin high
   assign yellow_light = 1'b1;
-  assign red_light = 1'b1;
-  
+  assign green_light = 1'b1;
+
 endmodule

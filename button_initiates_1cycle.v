@@ -36,17 +36,17 @@ module traffic_light(
       yellow_light <= 0;
       green_light <= 0;
 
-      // RED: 0–5s
+      // GREEN: 0–5s
       if (counter < 500_000_000) begin
-        red_light <= 1;
-
-      // GREEN: 5–10s
-      end else if (counter < 1_000_000_000) begin
         green_light <= 1;
 
-      // YELLOW: 10–13s
-      end else begin
+      // YELLOW: 5–8s
+      end else if (counter < 800_000_000) begin
         yellow_light <= 1;
+
+      // RED: 8–13s
+      end else begin
+        red_light <= 1;
       end
     end
   end
